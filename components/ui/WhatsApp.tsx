@@ -1,4 +1,4 @@
-import Icon from "$store/components/ui/Icon.tsx";
+import Image from "deco-sites/std/components/Image.tsx";
 
 export interface Props {
   phone?: number;
@@ -19,7 +19,13 @@ function WhatsApp({ phone }: Props) {
         class="bg-[#45D268] text-white p-2 rounded-full shadow-lg"
         aria-label="Chat on WhatsApp"
       >
-        <Icon id="WhatsApp" size={32} stroke="0.01" />
+        <Image
+          src={"https://www.ofertasimcauto.com.br/assets/img/site/common/img/wpp-logo.png"}
+          alt="WhatsApp"
+          width={80}
+          height={80}
+          loading="lazy"
+        />
       </button>
     </a>
   );

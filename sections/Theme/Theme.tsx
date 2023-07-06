@@ -232,11 +232,11 @@ export interface Miscellaneous {
 
 export interface Font {
   /**
-   * @default 'Albert Sans'
+   * @default 'Louis'
    */
   fontFamily?: string;
   /**
-   * @default @import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;700&display=swap');
+   * @default @import url('https://fonts.cdnfonts.com/css/louis');
    * \@format css
    */
   styleInnerHtml?: string;
@@ -386,7 +386,7 @@ function Section({
     [
       "--font-family",
       fonts?.fontFamily ??
-        "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif",
+      "Louis, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif",
     ],
   ]
     .map(([cssVar, value]) => `${cssVar}: ${value}`)

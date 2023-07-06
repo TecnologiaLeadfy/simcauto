@@ -20,6 +20,7 @@ export type AvailableIcons =
   | "Instagram"
   | "Linkedin"
   | "Logo"
+  | "Log"
   | "Minus"
   | "MapPin"
   | "MagnifyingGlass"

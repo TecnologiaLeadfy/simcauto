@@ -89,16 +89,17 @@ function ProductCard({ product, preload, itemListName, layout }: Props) {
     <a
       href={url && relative(url)}
       aria-label="view product"
-      class="btn btn-block"
+      class="btn rounded-none bg-[#fff] uppercase border-[3px] border-[#d19631] text-[14px] text-[#d19631] w-full"
     >
-      {l?.basics?.ctaText || "Ver produto"}
+      <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+      {l?.basics?.ctaText || "Estou interessado"}
     </a>
   );
 
   return (
     <div
       id={id}
-      class={`card card-compact group w-full ${
+      class={`card card-compact group w-full hover:bg-[#f7f7f7] ${
         align === "center" ? "text-center" : "text-start"
       } ${l?.onMouseOver?.showCardShadow ? "lg:hover:card-bordered" : ""}
         ${
@@ -143,10 +144,10 @@ function ProductCard({ product, preload, itemListName, layout }: Props) {
           }
         `}
         >
-          <WishlistIcon
+          {/* <WishlistIcon
             productGroupID={productGroupID}
             productID={productID}
-          />
+          /> */}
         </div>
         {/* Product Images */}
         <a
@@ -202,97 +203,30 @@ function ProductCard({ product, preload, itemListName, layout }: Props) {
           }
         `}
         >
-          {/* SKU Selector */}
-          {l?.onMouseOver?.showSkuSelector && (
-            <ul class="flex justify-center items-center gap-2 w-full">
-              {skuSelector}
-            </ul>
-          )}
-          {l?.onMouseOver?.showCta && cta}
         </figcaption>
       </figure>
       {/* Prices & Name */}
       <div class="flex-auto flex flex-col p-2 gap-3 lg:gap-4">
-        {/* SKU Selector */}
-        {(!l?.elementsPositions?.skuSelector ||
-          l?.elementsPositions?.skuSelector === "Top") && (
-          <>
-            {l?.hide?.skuSelector ? "" : (
-              <ul
-                class={`flex items-center gap-2 w-full ${
-                  align === "center" ? "justify-center" : "justify-start"
-                } ${l?.onMouseOver?.showSkuSelector ? "lg:hidden" : ""}`}
-              >
-                {skuSelector}
-              </ul>
-            )}
-          </>
-        )}
-
         {l?.hide?.productName && l?.hide?.productDescription
           ? ""
           : (
-            <div class="flex flex-col gap-0">
+            <div class="flex flex-col gap-0 text-center">
               {l?.hide?.productName
                 ? ""
                 : (
-                  <h2 class="truncate text-base lg:text-lg text-base-content">
+                  <h2 class="text-[#d19631] text-[22px] font-bold">
                     {name}
                   </h2>
                 )}
               {l?.hide?.productDescription
                 ? ""
                 : (
-                  <p class="truncate text-sm lg:text-sm text-neutral">
+                  <p class="text-[14px] text-[#000] font-bold">
                     {product.description}
                   </p>
                 )}
             </div>
           )}
-        {l?.hide?.allPrices ? "" : (
-          <div class="flex flex-col gap-2">
-            <div
-              class={`flex flex-col gap-0 ${
-                l?.basics?.oldPriceSize === "Normal"
-                  ? "lg:flex-row lg:gap-2"
-                  : ""
-              } ${align === "center" ? "justify-center" : "justify-start"}`}
-            >
-              <div
-                class={`line-through text-base-300 text-xs ${
-                  l?.basics?.oldPriceSize === "Normal" ? "lg:text-xl" : ""
-                }`}
-              >
-                {formatPrice(listPrice, offers!.priceCurrency!)}
-              </div>
-              <div class="text-accent text-base lg:text-xl">
-                {formatPrice(price, offers!.priceCurrency!)}
-              </div>
-            </div>
-            {l?.hide?.installments
-              ? ""
-              : (
-                <div class="text-base-300 text-sm lg:text-base">
-                  ou {installments}
-                </div>
-              )}
-          </div>
-        )}
-
-        {/* SKU Selector */}
-        {l?.elementsPositions?.skuSelector === "Bottom" && (
-          <>
-            {l?.hide?.skuSelector ? "" : (
-              <ul
-                class={`flex items-center gap-2 w-full ${
-                  align === "center" ? "justify-center" : "justify-start"
-                } ${l?.onMouseOver?.showSkuSelector ? "lg:hidden" : ""}`}
-              >
-                {skuSelector}
-              </ul>
-            )}
-          </>
-        )}
 
         {!l?.hide?.cta
           ? (
