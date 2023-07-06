@@ -79,7 +79,9 @@ function ProductHighlights(props: Props) {
                     <p class="text-[12px] text-[#d19631] text-center md:text-right uppercase mb-[10px] font-bold">
                       {highlight.title}
                     </p>
-                    <p class="text-secondary-content text-[17px] text-center uppercase">{highlight.subtitle}</p>
+                    <p class="text-secondary-content text-[17px] text-center uppercase">
+                      {highlight.subtitle}
+                    </p>
                   </div>
                   <div class="mt-[30px] mb:mt-[auto]">
                     <img

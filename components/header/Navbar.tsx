@@ -6,9 +6,7 @@ function Navbar({ items }: {
 }) {
   return (
     <>
-      <div
-        class="flex flex-row justify-between items-center p-[16px]"
-      >
+      <div class="flex flex-row justify-between items-center p-[16px]">
         <a
           href="/"
           class="flex-grow flex justify-center items-center"

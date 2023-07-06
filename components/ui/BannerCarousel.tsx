@@ -109,7 +109,8 @@ function BannerCarousel({ images, preload, interval }: Props) {
 
   return (
     <div
-      id={id} class="md:max-w-[1170px]"
+      id={id}
+      class="md:max-w-[1170px]"
     >
       <div class="relative">
         <Slider class="carousel carousel-center w-full">
