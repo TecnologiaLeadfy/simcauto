@@ -47,7 +47,7 @@ interface Props {
 }
 
 const relative = (url: string) => {
-  const link = new URL(url);
+  const link = new URL(url, "https://example.com");
   return `${link.pathname}${link.search}`;
 };
 
@@ -144,10 +144,12 @@ function ProductCard({ product, preload, itemListName, layout }: Props) {
           }
         `}
         >
-          {/* <WishlistIcon
+          {
+            /* <WishlistIcon
             productGroupID={productGroupID}
             productID={productID}
-          /> */}
+          /> */
+          }
         </div>
         {/* Product Images */}
         <a
@@ -155,32 +157,34 @@ function ProductCard({ product, preload, itemListName, layout }: Props) {
           aria-label="view product"
           class="contents"
         >
-          <Image
-            src={front.url!}
-            alt={front.alternateName}
-            width={WIDTH}
-            height={HEIGHT}
-            class={`
+          {front && (
+            <Image
+              src={front.url!}
+              alt={front.alternateName}
+              width={WIDTH}
+              height={HEIGHT}
+              class={`
               absolute rounded w-full
               ${
-              (!l?.onMouseOver?.image ||
-                  l?.onMouseOver?.image == "Change image")
-                ? "duration-100 transition-opacity opacity-100 lg:group-hover:opacity-0"
-                : ""
-            }
+                (!l?.onMouseOver?.image ||
+                    l?.onMouseOver?.image == "Change image")
+                  ? "duration-100 transition-opacity opacity-100 lg:group-hover:opacity-0"
+                  : ""
+              }
               ${
-              l?.onMouseOver?.image == "Zoom image"
-                ? "duration-100 transition-scale scale-100 lg:group-hover:scale-125"
-                : ""
-            }
+                l?.onMouseOver?.image == "Zoom image"
+                  ? "duration-100 transition-scale scale-100 lg:group-hover:scale-125"
+                  : ""
+              }
             `}
-            sizes="(max-width: 640px) 50vw, 20vw"
-            preload={preload}
-            loading={preload ? "eager" : "lazy"}
-            decoding="async"
-          />
+              sizes="(max-width: 640px) 50vw, 20vw"
+              preload={preload}
+              loading={preload ? "eager" : "lazy"}
+              decoding="async"
+            />
+          )}
           {(!l?.onMouseOver?.image ||
-            l?.onMouseOver?.image == "Change image") && (
+            l?.onMouseOver?.image == "Change image") && back && (
             <Image
               src={back?.url ?? front.url!}
               alt={back?.alternateName ?? front.alternateName}
