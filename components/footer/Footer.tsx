@@ -12,7 +12,7 @@ function Footer() {
 
       <div class="mt-[15px] flex justify-center w-full md:absolute md:right-[30px] md:top-[20px] md:w-[auto]">
         <Image
-          src={"https://www.ofertasimcauto.com.br/assets/uploads/nt_cores/99564-logo_leadforce.png"}
+          src={"https://app.leadfy.me/vendor/adminlte/dist/img/leadfy.png"}
           alt="Imagem"
           width={145}
           height={33}
