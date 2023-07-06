@@ -64,7 +64,6 @@
               "./islands/AddToCartButton.tsx",
               "./islands/HeaderButton.tsx",
               "./islands/HeaderModals.tsx",
-              "./islands/HeaderSearchbar.tsx",
               "./islands/Newsletter.tsx",
               "./islands/OutOfStock.tsx",
               "./islands/ProductImageZoom.tsx",
@@ -86,12 +85,14 @@
               "$live/sections/PageInclude.tsx",
               "$live/sections/Slot.tsx",
               "$live/sections/UseSlot.tsx",
+              "deco-sites/simcauto/sections/Breadcrumb/Breadcrumb.tsx",
               "deco-sites/simcauto/sections/Category/CategoryBanner.tsx",
               "deco-sites/simcauto/sections/Category/CategoryList.tsx",
               "deco-sites/simcauto/sections/Content/Benefits.tsx",
               "deco-sites/simcauto/sections/Content/Faq.tsx",
               "deco-sites/simcauto/sections/Content/Logos.tsx",
               "deco-sites/simcauto/sections/Content/Testimonials.tsx",
+              "deco-sites/simcauto/sections/DesignSystem/DesignSystem.tsx",
               "deco-sites/simcauto/sections/Footer/Footer.tsx",
               "deco-sites/simcauto/sections/Header/Header.tsx",
               "deco-sites/simcauto/sections/Images/BannerGrid.tsx",
@@ -100,13 +101,18 @@
               "deco-sites/simcauto/sections/Images/ShoppableBanner.tsx",
               "deco-sites/simcauto/sections/Links/LinkTree.tsx",
               "deco-sites/simcauto/sections/Links/Shortcuts.tsx",
+              "deco-sites/simcauto/sections/Location/Location.tsx",
               "deco-sites/simcauto/sections/Miscellaneous/CampaignTimer.tsx",
               "deco-sites/simcauto/sections/Miscellaneous/CookieConsent.tsx",
               "deco-sites/simcauto/sections/Newsletter/Newsletter.tsx",
+              "deco-sites/simcauto/sections/OfferForm/OfferForm.tsx",
+              "deco-sites/simcauto/sections/Product/ProductDescription.tsx",
               "deco-sites/simcauto/sections/Product/ProductDetails.tsx",
               "deco-sites/simcauto/sections/Product/ProductShelf.tsx",
               "deco-sites/simcauto/sections/Product/SearchResult.tsx",
               "deco-sites/simcauto/sections/Product/Wishlist.tsx",
+              "deco-sites/simcauto/sections/ProductHighlights/ProductHighlights.tsx",
+              "deco-sites/simcauto/sections/SelectCar/SelectCar.tsx",
               "deco-sites/simcauto/sections/Social/InstagramPosts.tsx",
               "deco-sites/simcauto/sections/Social/WhatsApp.tsx",
               "deco-sites/simcauto/sections/Theme/Theme.tsx",
@@ -3942,6 +3948,11 @@
         {
           "title": "VTEX Proxy Routes",
           "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ZGVjby1zaXRlcy9zdGQvbG9hZGVycy92dGV4L3Byb3h5LnRz@Props"
+            }
+          ],
           "required": [
             "__resolveType"
           ],
@@ -6999,6 +7010,23 @@
       "required": [],
       "title": "deco-sites/std/packs/vtex/loaders/navbar.ts@Props"
     },
+    "ZGVjby1zaXRlcy9zdGQvbG9hZGVycy92dGV4L3Byb3h5LnRz@Props": {
+      "type": "object",
+      "properties": {
+        "extraPathsToProxy": {
+          "type": "array",
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "title": "Extra Paths To Proxy"
+        }
+      },
+      "required": [],
+      "title": "deco-sites/std/loaders/vtex/proxy.ts@Props"
+    },
     "ZGVjby1zaXRlcy9zdGQvcGFja3MvdnRleC9sb2FkZXJzL3VzZXIudHM=@User": {
       "type": "object",
       "properties": {
@@ -7919,6 +7947,11 @@
                   },
                   {
                     "type": "string",
+                    "const": "Log",
+                    "default": "Log"
+                  },
+                  {
+                    "type": "string",
                     "const": "Minus",
                     "default": "Minus"
                   },
@@ -8439,532 +8472,338 @@
       "required": [],
       "title": "deco-sites/simcauto/sections/Content/Testimonials.tsx@Props"
     },
-    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@NewsletterForm": {
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9EZXNpZ25TeXN0ZW0vRGVzaWduU3lzdGVtLnRzeA==@Colors": {
       "type": "object",
       "properties": {
-        "placeholder": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "title": "Placeholder"
-        },
-        "buttonText": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "title": "Button Text"
-        },
-        "helpText": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "html",
-          "title": "Help Text"
-        }
-      },
-      "required": [],
-      "title": "NewsletterForm"
-    },
-    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@Item": {
-      "type": "object",
-      "properties": {
-        "label": {
+        "primary": {
           "type": "string",
-          "title": "Label"
+          "format": "color",
+          "default": "#003232",
+          "title": "Primary"
         },
-        "href": {
+        "secondary": {
           "type": "string",
-          "title": "Href"
+          "format": "color",
+          "default": "#8C3D3D",
+          "title": "Secondary"
+        },
+        "accent": {
+          "type": "string",
+          "format": "color",
+          "default": "#00FF7F",
+          "title": "Accent"
+        },
+        "neutral": {
+          "type": "string",
+          "format": "color",
+          "default": "#333333",
+          "title": "Neutral"
+        },
+        "base-100": {
+          "type": "string",
+          "format": "color",
+          "default": "#FFFFFF",
+          "title": "Base-100"
+        },
+        "success": {
+          "type": "string",
+          "format": "color",
+          "default": "#EAFAF2",
+          "title": "Success"
+        },
+        "warning": {
+          "type": "string",
+          "format": "color",
+          "default": "#FFF8E6",
+          "title": "Warning"
+        },
+        "error": {
+          "type": "string",
+          "format": "color",
+          "default": "#FFE9E5",
+          "title": "Error"
+        },
+        "info": {
+          "type": "string",
+          "format": "color",
+          "default": "#F0F5FF",
+          "title": "Info"
         }
       },
       "required": [
-        "label",
-        "href"
+        "primary",
+        "secondary",
+        "accent",
+        "neutral",
+        "base-100",
+        "success",
+        "warning",
+        "error",
+        "info"
       ],
-      "title": "Item"
+      "title": "Colors"
     },
-    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@Item[]": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@Item"
-      },
-      "title": "Item[]"
-    },
-    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@Section": {
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9EZXNpZ25TeXN0ZW0vRGVzaWduU3lzdGVtLnRzeA==@OptionalColors": {
       "type": "object",
       "properties": {
-        "label": {
-          "type": "string",
-          "title": "Label"
+        "primary-focus": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "color",
+          "description": "Will be a darker tone of primary if not specified",
+          "title": "Primary-focus"
         },
-        "items": {
-          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@Item[]",
-          "title": "Items"
+        "primary-content": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "color",
+          "description": "Will be a readable tone of primary if not specified",
+          "title": "Primary-content"
+        },
+        "secondary-focus": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "color",
+          "description": "Will be a darker tone of secondary if not specified",
+          "title": "Secondary-focus"
+        },
+        "secondary-content": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "color",
+          "description": "Will be a readable tone of secondary if not specified",
+          "title": "Secondary-content"
+        },
+        "accent-focus": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "color",
+          "description": "Will be a darker tone of accent if not specified",
+          "title": "Accent-focus"
+        },
+        "accent-content": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "color",
+          "description": "Will be a readable tone of accent if not specified",
+          "title": "Accent-content"
+        },
+        "neutral-focus": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "color",
+          "description": "Will be a darker tone of neutral if not specified",
+          "title": "Neutral-focus"
+        },
+        "neutral-content": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "color",
+          "description": "Will be a readable tone of neutral if not specified",
+          "title": "Neutral-content"
+        },
+        "base-200": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "color",
+          "description": "Will be a darker tone of base-100 if not specified",
+          "title": "Base-200"
+        },
+        "base-300": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "color",
+          "description": "Will be a darker tone of base-200 if not specified",
+          "title": "Base-300"
+        },
+        "base-content": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "color",
+          "description": "Will be a readable tone of base-100 if not specified",
+          "title": "Base-content"
+        },
+        "success-content": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "color",
+          "description": "Will be a readable success of neutral if not specified",
+          "title": "Success-content"
+        },
+        "warning-content": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "color",
+          "description": "Will be a readable tone of warning if not specified",
+          "title": "Warning-content"
+        },
+        "error-content": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "color",
+          "description": "Will be a readable tone of error if not specified",
+          "title": "Error-content"
+        },
+        "info-content": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "color",
+          "description": "Will be a readable tone of info if not specified",
+          "title": "Info-content"
+        }
+      },
+      "required": [],
+      "title": "OptionalColors"
+    },
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9EZXNpZ25TeXN0ZW0vRGVzaWduU3lzdGVtLnRzeA==@Miscellaneous": {
+      "type": "object",
+      "properties": {
+        "--rounded-box": {
+          "type": "string",
+          "default": "1rem",
+          "title": "Rounded box",
+          "description": "border radius rounded-box utility class, used in card and other large boxes"
+        },
+        "--rounded-btn": {
+          "type": "string",
+          "default": "0.5rem",
+          "title": "Rounded button",
+          "description": "border radius rounded-btn utility class, used in buttons and similar element"
+        },
+        "--rounded-badge": {
+          "type": "string",
+          "default": "1.9rem",
+          "title": "Rounded badge",
+          "description": "border radius rounded-badge utility class, used in badges and similar"
+        },
+        "--animation-btn": {
+          "type": "string",
+          "default": "0.25s",
+          "title": "Animation button",
+          "description": "duration of animation when you click on button"
+        },
+        "--animation-input": {
+          "type": "string",
+          "default": "0.2s",
+          "title": "Animation input",
+          "description": "duration of animation for inputs like checkbox, toggle, radio, etc"
+        },
+        "--btn-text-case": {
+          "type": "string",
+          "default": "uppercase",
+          "title": "Button text case",
+          "description": "set default text transform for buttons"
+        },
+        "--btn-focus-scale": {
+          "type": "string",
+          "default": "0.95",
+          "title": "Button focus scale",
+          "description": "scale transform of button when you focus on it"
+        },
+        "--border-btn": {
+          "type": "string",
+          "default": "1px",
+          "title": "Border button",
+          "description": "border width of buttons"
+        },
+        "--tab-border": {
+          "type": "string",
+          "default": "1px",
+          "title": "Tab border",
+          "description": "border width of tabs"
+        },
+        "--tab-radius": {
+          "type": "string",
+          "default": "0.5rem",
+          "title": "Tab radius",
+          "description": "border radius of tabs"
         }
       },
       "required": [
-        "label",
-        "items"
+        "--rounded-box",
+        "--rounded-btn",
+        "--rounded-badge",
+        "--animation-btn",
+        "--animation-input",
+        "--btn-text-case",
+        "--btn-focus-scale",
+        "--border-btn",
+        "--tab-border",
+        "--tab-radius"
       ],
-      "title": "Section"
+      "title": "Miscellaneous"
     },
-    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@Section[]": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@Section"
-      },
-      "title": "Section[]"
-    },
-    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@SocialItem": {
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9EZXNpZ25TeXN0ZW0vRGVzaWduU3lzdGVtLnRzeA==@Font": {
       "type": "object",
       "properties": {
-        "label": {
-          "anyOf": [
-            {
-              "type": "string",
-              "const": "Discord",
-              "default": "Discord"
-            },
-            {
-              "type": "string",
-              "const": "Facebook",
-              "default": "Facebook"
-            },
-            {
-              "type": "string",
-              "const": "Instagram",
-              "default": "Instagram"
-            },
-            {
-              "type": "string",
-              "const": "Linkedin",
-              "default": "Linkedin"
-            },
-            {
-              "type": "string",
-              "const": "Tiktok",
-              "default": "Tiktok"
-            },
-            {
-              "type": "string",
-              "const": "Twitter",
-              "default": "Twitter"
-            }
-          ],
+        "fontFamily": {
           "type": "string",
-          "title": "Label"
+          "default": "'Louis'",
+          "title": "Font Family"
         },
-        "link": {
+        "styleInnerHtml": {
           "type": "string",
-          "title": "Link"
+          "title": "Style Inner Html"
         }
       },
       "required": [
-        "label",
-        "link"
+        "fontFamily",
+        "styleInnerHtml"
       ],
-      "title": "SocialItem"
+      "title": "Font"
     },
-    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@SocialItem[]": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@SocialItem"
-      },
-      "title": "SocialItem[]"
-    },
-    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@PaymentItem": {
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9EZXNpZ25TeXN0ZW0vRGVzaWduU3lzdGVtLnRzeA==@Props": {
       "type": "object",
       "properties": {
-        "label": {
-          "anyOf": [
-            {
-              "type": "string",
-              "const": "Diners",
-              "default": "Diners"
-            },
-            {
-              "type": "string",
-              "const": "Elo",
-              "default": "Elo"
-            },
-            {
-              "type": "string",
-              "const": "Mastercard",
-              "default": "Mastercard"
-            },
-            {
-              "type": "string",
-              "const": "Pix",
-              "default": "Pix"
-            },
-            {
-              "type": "string",
-              "const": "Visa",
-              "default": "Visa"
-            }
-          ],
-          "type": "string",
-          "title": "Label"
-        }
-      },
-      "required": [
-        "label"
-      ],
-      "title": "PaymentItem"
-    },
-    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@PaymentItem[]": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@PaymentItem"
-      },
-      "title": "PaymentItem[]"
-    },
-    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@MobileApps": {
-      "type": "object",
-      "properties": {
-        "apple": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "Link to the app",
-          "title": "Apple"
+        "colors": {
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9EZXNpZ25TeXN0ZW0vRGVzaWduU3lzdGVtLnRzeA==@Colors",
+          "title": "Colors"
         },
-        "android": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "Link to the app",
-          "title": "Android"
+        "optionalColors": {
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9EZXNpZ25TeXN0ZW0vRGVzaWduU3lzdGVtLnRzeA==@OptionalColors",
+          "title": "Optional Colors"
+        },
+        "miscellaneous": {
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9EZXNpZ25TeXN0ZW0vRGVzaWduU3lzdGVtLnRzeA==@Miscellaneous",
+          "title": "Miscellaneous"
+        },
+        "fonts": {
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9EZXNpZ25TeXN0ZW0vRGVzaWduU3lzdGVtLnRzeA==@Font",
+          "title": "Fonts"
         }
       },
       "required": [],
-      "title": "MobileApps"
-    },
-    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@RegionOptions": {
-      "type": "object",
-      "properties": {
-        "currency": {
-          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@Item[]",
-          "title": "Currency"
-        },
-        "language": {
-          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@Item[]",
-          "title": "Language"
-        }
-      },
-      "required": [],
-      "title": "RegionOptions"
-    },
-    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@Layout": {
-      "type": "object",
-      "properties": {
-        "backgroundColor": {
-          "anyOf": [
-            {
-              "type": "string",
-              "const": "Primary",
-              "default": "Primary"
-            },
-            {
-              "type": "string",
-              "const": "Secondary",
-              "default": "Secondary"
-            },
-            {
-              "type": "string",
-              "const": "Accent",
-              "default": "Accent"
-            },
-            {
-              "type": "string",
-              "const": "Base 100",
-              "default": "Base 100"
-            },
-            {
-              "type": "string",
-              "const": "Base 100 inverted",
-              "default": "Base 100 inverted"
-            }
-          ],
-          "type": "string",
-          "title": "Background Color"
-        },
-        "variation": {
-          "anyOf": [
-            {
-              "type": "string",
-              "const": "Variation 1",
-              "default": "Variation 1"
-            },
-            {
-              "type": "string",
-              "const": "Variation 2",
-              "default": "Variation 2"
-            },
-            {
-              "type": "string",
-              "const": "Variation 3",
-              "default": "Variation 3"
-            },
-            {
-              "type": "string",
-              "const": "Variation 4",
-              "default": "Variation 4"
-            },
-            {
-              "type": "string",
-              "const": "Variation 5",
-              "default": "Variation 5"
-            }
-          ],
-          "type": "string",
-          "title": "Variation"
-        },
-        "hide": {
-          "type": "object",
-          "properties": {
-            "logo": {
-              "type": [
-                "boolean",
-                "null"
-              ],
-              "title": "Logo"
-            },
-            "newsletter": {
-              "type": [
-                "boolean",
-                "null"
-              ],
-              "title": "Newsletter"
-            },
-            "sectionLinks": {
-              "type": [
-                "boolean",
-                "null"
-              ],
-              "title": "Section Links"
-            },
-            "socialLinks": {
-              "type": [
-                "boolean",
-                "null"
-              ],
-              "title": "Social Links"
-            },
-            "paymentMethods": {
-              "type": [
-                "boolean",
-                "null"
-              ],
-              "title": "Payment Methods"
-            },
-            "mobileApps": {
-              "type": [
-                "boolean",
-                "null"
-              ],
-              "title": "Mobile Apps"
-            },
-            "regionOptions": {
-              "type": [
-                "boolean",
-                "null"
-              ],
-              "title": "Region Options"
-            },
-            "extraLinks": {
-              "type": [
-                "boolean",
-                "null"
-              ],
-              "title": "Extra Links"
-            },
-            "backToTheTop": {
-              "type": [
-                "boolean",
-                "null"
-              ],
-              "title": "Back To The Top"
-            }
-          },
-          "required": [],
-          "title": "Hide"
-        }
-      },
-      "required": [],
-      "title": "Layout"
-    },
-    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@Props": {
-      "type": "object",
-      "properties": {
-        "logo": {
-          "type": "object",
-          "properties": {
-            "image": {
-              "$ref": "#/definitions/ZGVjby1zaXRlcy9zdGQvY29tcG9uZW50cy90eXBlcy50cw==@Image",
-              "title": "Image"
-            },
-            "description": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "title": "Description"
-            }
-          },
-          "required": [
-            "image"
-          ],
-          "title": "Logo"
-        },
-        "newsletter": {
-          "type": "object",
-          "properties": {
-            "title": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "title": "Title"
-            },
-            "description": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "title": "Description"
-            },
-            "form": {
-              "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@NewsletterForm",
-              "title": "Form"
-            }
-          },
-          "required": [],
-          "title": "Newsletter"
-        },
-        "sections": {
-          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@Section[]",
-          "title": "Sections"
-        },
-        "social": {
-          "type": "object",
-          "properties": {
-            "title": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "title": "Title"
-            },
-            "items": {
-              "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@SocialItem[]",
-              "title": "Items"
-            }
-          },
-          "required": [
-            "items"
-          ],
-          "title": "Social"
-        },
-        "payments": {
-          "type": "object",
-          "properties": {
-            "title": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "title": "Title"
-            },
-            "items": {
-              "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@PaymentItem[]",
-              "title": "Items"
-            }
-          },
-          "required": [
-            "items"
-          ],
-          "title": "Payments"
-        },
-        "mobileApps": {
-          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@MobileApps",
-          "title": "Mobile Apps"
-        },
-        "regionOptions": {
-          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@RegionOptions",
-          "title": "Region Options"
-        },
-        "extraLinks": {
-          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@Item[]",
-          "title": "Extra Links"
-        },
-        "backToTheTop": {
-          "type": "object",
-          "properties": {
-            "text": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "title": "Text"
-            }
-          },
-          "required": [],
-          "title": "Back To The Top"
-        },
-        "layout": {
-          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@Layout",
-          "title": "Layout"
-        }
-      },
-      "required": [],
-      "title": "deco-sites/simcauto/components/footer/Footer.tsx@Props"
-    },
-    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL3NlYXJjaC9TZWFyY2hiYXIudHN4@EditableProps": {
-      "type": "object",
-      "properties": {
-        "placeholder": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "title": "Placeholder",
-          "description": "Search bar default placeholder message",
-          "default": "What are you looking for?"
-        },
-        "action": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "title": "Page path",
-          "description": "When user clicks on the search button, navigate it to",
-          "default": "/s"
-        },
-        "name": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "title": "Term name",
-          "description": "Querystring param used when navigating the user",
-          "default": "q"
-        },
-        "query": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "title": "Query"
-        }
-      },
-      "required": [],
-      "title": "EditableProps"
+      "title": "deco-sites/simcauto/sections/DesignSystem/DesignSystem.tsx@Props"
     },
     "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2hlYWRlci9IZWFkZXIudHN4@NavItem": {
       "type": "object",
@@ -9061,23 +8900,10 @@
           },
           "title": "Alerts"
         },
-        "searchbar": {
-          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL3NlYXJjaC9TZWFyY2hiYXIudHN4@EditableProps",
-          "title": "Search Bar"
-        },
         "navItems": {
           "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2hlYWRlci9IZWFkZXIudHN4@NavItem[]",
           "title": "Navigation items",
           "description": "Navigation items used both on mobile and desktop menus"
-        },
-        "products": {
-          "$ref": "#/definitions/ZGVjby1zaXRlcy9zdGQvY29tbWVyY2UvdHlwZXMudHM=@Product[]|null",
-          "title": "Product suggestions",
-          "description": "Product suggestions displayed on search"
-        },
-        "suggestions": {
-          "$ref": "#/definitions/ZGVjby1zaXRlcy9zdGQvY29tbWVyY2UvdHlwZXMudHM=@Suggestion|null",
-          "title": "Enable Top Search terms"
         }
       },
       "required": [
@@ -9711,6 +9537,20 @@
           ],
           "title": "Title"
         },
+        "textComplement": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Text Complement"
+        },
+        "textSecundaryComplement": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Text Secundary Complement"
+        },
         "link": {
           "type": "object",
           "properties": {
@@ -9939,6 +9779,11 @@
             },
             {
               "type": "string",
+              "const": "Log",
+              "default": "Log"
+            },
+            {
+              "type": "string",
               "const": "Minus",
               "default": "Minus"
             },
@@ -10091,6 +9936,71 @@
       },
       "required": [],
       "title": "deco-sites/simcauto/sections/Links/Shortcuts.tsx@Props"
+    },
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL0xvY2F0aW9uL0xvY2F0aW9uLnRzeA==@Address": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Title"
+        },
+        "address": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Address"
+        },
+        "telephone": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Telephone"
+        }
+      },
+      "required": [],
+      "title": "Address"
+    },
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL0xvY2F0aW9uL0xvY2F0aW9uLnRzeA==@Address[]": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL0xvY2F0aW9uL0xvY2F0aW9uLnRzeA==@Address"
+      },
+      "title": "Address[]"
+    },
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL0xvY2F0aW9uL0xvY2F0aW9uLnRzeA==@Props": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "title": "Title"
+        },
+        "subtitle": {
+          "type": "string",
+          "title": "Subtitle"
+        },
+        "addresses": {
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL0xvY2F0aW9uL0xvY2F0aW9uLnRzeA==@Address[]",
+          "title": "Addresses"
+        },
+        "interval": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "title": "Autoplay interval",
+          "description": "time (in seconds) to start the carousel autoplay"
+        }
+      },
+      "required": [
+        "title",
+        "subtitle"
+      ],
+      "title": "deco-sites/simcauto/components/Location/Location.tsx@Props"
     },
     "ZGVjby1zaXRlcy9zdGQvY29tcG9uZW50cy90eXBlcy50cw==@HTML": {
       "type": "string",
@@ -10433,6 +10343,150 @@
       },
       "required": [],
       "title": "deco-sites/simcauto/sections/Newsletter/Newsletter.tsx@Props"
+    },
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL29mZmVyRm9ybS9PZmZlckZvcm0udHN4@Form": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Name"
+        },
+        "email": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Email"
+        },
+        "telephone": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Telephone"
+        },
+        "store": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Store"
+        },
+        "model": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Model"
+        },
+        "message": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Message"
+        }
+      },
+      "required": [],
+      "title": "Form"
+    },
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL29mZmVyRm9ybS9PZmZlckZvcm0udHN4@Props": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Title"
+        },
+        "form": {
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL29mZmVyRm9ybS9PZmZlckZvcm0udHN4@Form",
+          "title": "Form"
+        }
+      },
+      "required": [
+        "form"
+      ],
+      "title": "Props"
+    },
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL3Byb2R1Y3QvUHJvZHVjdERlc2NyaXB0aW9uLnRzeA==@Content": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Name"
+        },
+        "buttonText": {
+          "type": "string",
+          "title": "Button Text"
+        },
+        "specification": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Specification"
+        },
+        "image": {
+          "type": "object",
+          "properties": {
+            "mobile": {
+              "$ref": "#/definitions/ZGVjby1zaXRlcy9zdGQvY29tcG9uZW50cy90eXBlcy50cw==@Image",
+              "title": "Mobile"
+            },
+            "desktop": {
+              "$ref": "#/definitions/ZGVjby1zaXRlcy9zdGQvY29tcG9uZW50cy90eXBlcy50cw==@Image",
+              "title": "Desktop"
+            }
+          },
+          "required": [],
+          "title": "Image"
+        }
+      },
+      "required": [
+        "buttonText",
+        "specification"
+      ],
+      "title": "Content"
+    },
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL3Byb2R1Y3QvUHJvZHVjdERlc2NyaXB0aW9uLnRzeA==@Content[]": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL3Byb2R1Y3QvUHJvZHVjdERlc2NyaXB0aW9uLnRzeA==@Content"
+      },
+      "title": "Content[]"
+    },
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL3Byb2R1Y3QvUHJvZHVjdERlc2NyaXB0aW9uLnRzeA==@Props": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "title": "Title"
+        },
+        "description": {
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL3Byb2R1Y3QvUHJvZHVjdERlc2NyaXB0aW9uLnRzeA==@Content[]",
+          "title": "Description"
+        },
+        "interval": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "title": "Autoplay interval",
+          "description": "time (in seconds) to start the carousel autoplay"
+        }
+      },
+      "required": [
+        "title"
+      ],
+      "title": "deco-sites/simcauto/components/product/ProductDescription.tsx@Props"
     },
     "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL3Byb2R1Y3QvUHJvZHVjdERldGFpbHMudHN4@Props": {
       "type": "object",
@@ -10819,6 +10873,114 @@
         "page"
       ],
       "title": "deco-sites/simcauto/components/search/SearchResult.tsx@Props"
+    },
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9Qcm9kdWN0SGlnaGxpZ2h0cy9Qcm9kdWN0SGlnaGxpZ2h0cy50c3g=@Content": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Title"
+        },
+        "subtitle": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Subtitle"
+        },
+        "image": {
+          "type": "object",
+          "properties": {
+            "mobile": {
+              "$ref": "#/definitions/ZGVjby1zaXRlcy9zdGQvY29tcG9uZW50cy90eXBlcy50cw==@Image",
+              "title": "Mobile"
+            },
+            "desktop": {
+              "$ref": "#/definitions/ZGVjby1zaXRlcy9zdGQvY29tcG9uZW50cy90eXBlcy50cw==@Image",
+              "title": "Desktop"
+            },
+            "altText": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "title": "Alt Text"
+            }
+          },
+          "required": [],
+          "title": "Image"
+        }
+      },
+      "required": [],
+      "title": "Content"
+    },
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9Qcm9kdWN0SGlnaGxpZ2h0cy9Qcm9kdWN0SGlnaGxpZ2h0cy50c3g=@Content[]": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9Qcm9kdWN0SGlnaGxpZ2h0cy9Qcm9kdWN0SGlnaGxpZ2h0cy50c3g=@Content"
+      },
+      "title": "Content[]"
+    },
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9Qcm9kdWN0SGlnaGxpZ2h0cy9Qcm9kdWN0SGlnaGxpZ2h0cy50c3g=@Props": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "title": "Title"
+        },
+        "highlights": {
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9Qcm9kdWN0SGlnaGxpZ2h0cy9Qcm9kdWN0SGlnaGxpZ2h0cy50c3g=@Content[]",
+          "title": "Highlights"
+        },
+        "interval": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "title": "Autoplay interval",
+          "description": "time (in seconds) to start the carousel autoplay"
+        }
+      },
+      "required": [
+        "title"
+      ],
+      "title": "deco-sites/simcauto/sections/ProductHighlights/ProductHighlights.tsx@Props"
+    },
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL3NlbGVjdENhci9TZWxlY3RDYXIudHN4@Props": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "title": "Title"
+        },
+        "titleSpecialWord": {
+          "type": "string",
+          "title": "Title Special Word"
+        },
+        "subtitle": {
+          "type": "string",
+          "title": "Subtitle"
+        },
+        "specialWord": {
+          "type": "string",
+          "title": "Special Word"
+        },
+        "products": {
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zdGQvY29tbWVyY2UvdHlwZXMudHM=@Product[]|null",
+          "title": "Products"
+        }
+      },
+      "required": [
+        "title",
+        "titleSpecialWord",
+        "subtitle",
+        "specialWord",
+        "products"
+      ],
+      "title": "deco-sites/simcauto/components/selectCar/SelectCar.tsx@Props"
     },
     "ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9Tb2NpYWwvSW5zdGFncmFtUG9zdHMudHN4@layout": {
       "type": "object",
@@ -11224,7 +11386,7 @@
             "string",
             "null"
           ],
-          "default": "'Albert Sans'",
+          "default": "'Louis'",
           "title": "Font Family"
         },
         "styleInnerHtml": {
@@ -11834,7 +11996,7 @@
       ],
       "title": "deco-cx/live/actions/workflows/cancel.ts@Props"
     },
-    "ZGVjby1jeC9kdXJhYmxlL2NvbnRleHQudHM=@Metadata&d53c654012b1a9c30560229e428269fa": {
+    "ZGVjby1jeC9kdXJhYmxlL2NvbnRleHQudHM=@84fc92f16c8c63842cf10a2dafbc96f9&Metadata": {
       "allOf": [
         {
           "type": "object",
@@ -11852,9 +12014,9 @@
           "$ref": "#/definitions/ZGVjby1jeC9kdXJhYmxlL2NvbnRleHQudHM=@Metadata"
         }
       ],
-      "title": "Metadata&d53c654012b1a9c30560229e428269fa"
+      "title": "84fc92f16c8c63842cf10a2dafbc96f9&Metadata"
     },
-    "ZGVjby1jeC9kdXJhYmxlL2hhbmRsZXIudHM=@RunRequest+Arg+Metadata&d53c654012b1a9c30560229e428269fa": {
+    "ZGVjby1jeC9kdXJhYmxlL2hhbmRsZXIudHM=@RunRequest+Arg+84fc92f16c8c63842cf10a2dafbc96f9&Metadata": {
       "type": "object",
       "properties": {
         "results": {
@@ -11865,7 +12027,7 @@
           "title": "Execution Id"
         },
         "metadata": {
-          "$ref": "#/definitions/ZGVjby1jeC9kdXJhYmxlL2NvbnRleHQudHM=@Metadata&d53c654012b1a9c30560229e428269fa",
+          "$ref": "#/definitions/ZGVjby1jeC9kdXJhYmxlL2NvbnRleHQudHM=@84fc92f16c8c63842cf10a2dafbc96f9&Metadata",
           "title": "Metadata"
         }
       },
@@ -11874,7 +12036,7 @@
         "executionId",
         "metadata"
       ],
-      "title": "deco-cx/durable/handler.ts@RunRequest+Arg+Metadata&d53c654012b1a9c30560229e428269fa"
+      "title": "deco-cx/durable/handler.ts@RunRequest+Arg+84fc92f16c8c63842cf10a2dafbc96f9&Metadata"
     },
     "ZGVjby1jeC9saXZlL2FjdGlvbnMvd29ya2Zsb3dzL3NpZ25hbC50cw==@Props": {
       "type": "object",
@@ -13377,6 +13539,11 @@
     "ZGVjby1zaXRlcy9zdGQvbG9hZGVycy92dGV4L3Byb3h5LnRz": {
       "title": "VTEX Proxy Routes",
       "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zdGQvbG9hZGVycy92dGV4L3Byb3h5LnRz@Props"
+        }
+      ],
       "required": [
         "__resolveType"
       ],
@@ -13472,22 +13639,6 @@
             "./islands/HeaderModals.tsx"
           ],
           "default": "./islands/HeaderModals.tsx"
-        }
-      }
-    },
-    "Li9pc2xhbmRzL0hlYWRlclNlYXJjaGJhci50c3g=": {
-      "title": "./islands/HeaderSearchbar.tsx",
-      "type": "object",
-      "required": [
-        "__resolveType"
-      ],
-      "properties": {
-        "__resolveType": {
-          "type": "string",
-          "enum": [
-            "./islands/HeaderSearchbar.tsx"
-          ],
-          "default": "./islands/HeaderSearchbar.tsx"
         }
       }
     },
@@ -13896,6 +14047,22 @@
         }
       }
     },
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9CcmVhZGNydW1iL0JyZWFkY3J1bWIudHN4": {
+      "title": "deco-sites/simcauto/sections/Breadcrumb/Breadcrumb.tsx",
+      "type": "object",
+      "required": [
+        "__resolveType"
+      ],
+      "properties": {
+        "__resolveType": {
+          "type": "string",
+          "enum": [
+            "deco-sites/simcauto/sections/Breadcrumb/Breadcrumb.tsx"
+          ],
+          "default": "deco-sites/simcauto/sections/Breadcrumb/Breadcrumb.tsx"
+        }
+      }
+    },
     "ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9DYXRlZ29yeS9DYXRlZ29yeUJhbm5lci50c3g=": {
       "title": "deco-sites/simcauto/sections/Category/CategoryBanner.tsx",
       "type": "object",
@@ -14022,14 +14189,30 @@
         }
       }
     },
-    "ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9Gb290ZXIvRm9vdGVyLnRzeA==": {
-      "title": "deco-sites/simcauto/sections/Footer/Footer.tsx",
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9EZXNpZ25TeXN0ZW0vRGVzaWduU3lzdGVtLnRzeA==": {
+      "title": "deco-sites/simcauto/sections/DesignSystem/DesignSystem.tsx",
       "type": "object",
       "allOf": [
         {
-          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL2Zvb3Rlci9Gb290ZXIudHN4@Props"
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9EZXNpZ25TeXN0ZW0vRGVzaWduU3lzdGVtLnRzeA==@Props"
         }
       ],
+      "required": [
+        "__resolveType"
+      ],
+      "properties": {
+        "__resolveType": {
+          "type": "string",
+          "enum": [
+            "deco-sites/simcauto/sections/DesignSystem/DesignSystem.tsx"
+          ],
+          "default": "deco-sites/simcauto/sections/DesignSystem/DesignSystem.tsx"
+        }
+      }
+    },
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9Gb290ZXIvRm9vdGVyLnRzeA==": {
+      "title": "deco-sites/simcauto/sections/Footer/Footer.tsx",
+      "type": "object",
       "required": [
         "__resolveType"
       ],
@@ -14190,6 +14373,27 @@
         }
       }
     },
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9Mb2NhdGlvbi9Mb2NhdGlvbi50c3g=": {
+      "title": "deco-sites/simcauto/sections/Location/Location.tsx",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL0xvY2F0aW9uL0xvY2F0aW9uLnRzeA==@Props"
+        }
+      ],
+      "required": [
+        "__resolveType"
+      ],
+      "properties": {
+        "__resolveType": {
+          "type": "string",
+          "enum": [
+            "deco-sites/simcauto/sections/Location/Location.tsx"
+          ],
+          "default": "deco-sites/simcauto/sections/Location/Location.tsx"
+        }
+      }
+    },
     "ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9NaXNjZWxsYW5lb3VzL0NhbXBhaWduVGltZXIudHN4": {
       "title": "deco-sites/simcauto/sections/Miscellaneous/CampaignTimer.tsx",
       "type": "object",
@@ -14250,6 +14454,43 @@
             "deco-sites/simcauto/sections/Newsletter/Newsletter.tsx"
           ],
           "default": "deco-sites/simcauto/sections/Newsletter/Newsletter.tsx"
+        }
+      }
+    },
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9PZmZlckZvcm0vT2ZmZXJGb3JtLnRzeA==": {
+      "title": "deco-sites/simcauto/sections/OfferForm/OfferForm.tsx",
+      "type": "object",
+      "required": [
+        "__resolveType"
+      ],
+      "properties": {
+        "__resolveType": {
+          "type": "string",
+          "enum": [
+            "deco-sites/simcauto/sections/OfferForm/OfferForm.tsx"
+          ],
+          "default": "deco-sites/simcauto/sections/OfferForm/OfferForm.tsx"
+        }
+      }
+    },
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9Qcm9kdWN0L1Byb2R1Y3REZXNjcmlwdGlvbi50c3g=": {
+      "title": "deco-sites/simcauto/sections/Product/ProductDescription.tsx",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL3Byb2R1Y3QvUHJvZHVjdERlc2NyaXB0aW9uLnRzeA==@Props"
+        }
+      ],
+      "required": [
+        "__resolveType"
+      ],
+      "properties": {
+        "__resolveType": {
+          "type": "string",
+          "enum": [
+            "deco-sites/simcauto/sections/Product/ProductDescription.tsx"
+          ],
+          "default": "deco-sites/simcauto/sections/Product/ProductDescription.tsx"
         }
       }
     },
@@ -14334,6 +14575,48 @@
             "deco-sites/simcauto/sections/Product/Wishlist.tsx"
           ],
           "default": "deco-sites/simcauto/sections/Product/Wishlist.tsx"
+        }
+      }
+    },
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9Qcm9kdWN0SGlnaGxpZ2h0cy9Qcm9kdWN0SGlnaGxpZ2h0cy50c3g=": {
+      "title": "deco-sites/simcauto/sections/ProductHighlights/ProductHighlights.tsx",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9Qcm9kdWN0SGlnaGxpZ2h0cy9Qcm9kdWN0SGlnaGxpZ2h0cy50c3g=@Props"
+        }
+      ],
+      "required": [
+        "__resolveType"
+      ],
+      "properties": {
+        "__resolveType": {
+          "type": "string",
+          "enum": [
+            "deco-sites/simcauto/sections/ProductHighlights/ProductHighlights.tsx"
+          ],
+          "default": "deco-sites/simcauto/sections/ProductHighlights/ProductHighlights.tsx"
+        }
+      }
+    },
+    "ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9TZWxlY3RDYXIvU2VsZWN0Q2FyLnRzeA==": {
+      "title": "deco-sites/simcauto/sections/SelectCar/SelectCar.tsx",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9jb21wb25lbnRzL3NlbGVjdENhci9TZWxlY3RDYXIudHN4@Props"
+        }
+      ],
+      "required": [
+        "__resolveType"
+      ],
+      "properties": {
+        "__resolveType": {
+          "type": "string",
+          "enum": [
+            "deco-sites/simcauto/sections/SelectCar/SelectCar.tsx"
+          ],
+          "default": "deco-sites/simcauto/sections/SelectCar/SelectCar.tsx"
         }
       }
     },
@@ -14910,7 +15193,7 @@
       "type": "object",
       "allOf": [
         {
-          "$ref": "#/definitions/ZGVjby1jeC9kdXJhYmxlL2hhbmRsZXIudHM=@RunRequest+Arg+Metadata&d53c654012b1a9c30560229e428269fa"
+          "$ref": "#/definitions/ZGVjby1jeC9kdXJhYmxlL2hhbmRsZXIudHM=@RunRequest+Arg+84fc92f16c8c63842cf10a2dafbc96f9&Metadata"
         }
       ],
       "required": [
@@ -15500,9 +15783,6 @@
           "$ref": "#/definitions/Li9pc2xhbmRzL0hlYWRlck1vZGFscy50c3g="
         },
         {
-          "$ref": "#/definitions/Li9pc2xhbmRzL0hlYWRlclNlYXJjaGJhci50c3g="
-        },
-        {
           "$ref": "#/definitions/Li9pc2xhbmRzL05ld3NsZXR0ZXIudHN4"
         },
         {
@@ -15590,6 +15870,9 @@
           "$ref": "#/definitions/JGxpdmUvc2VjdGlvbnMvVXNlU2xvdC50c3g="
         },
         {
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9CcmVhZGNydW1iL0JyZWFkY3J1bWIudHN4"
+        },
+        {
           "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9DYXRlZ29yeS9DYXRlZ29yeUJhbm5lci50c3g="
         },
         {
@@ -15606,6 +15889,9 @@
         },
         {
           "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9Db250ZW50L1Rlc3RpbW9uaWFscy50c3g="
+        },
+        {
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9EZXNpZ25TeXN0ZW0vRGVzaWduU3lzdGVtLnRzeA=="
         },
         {
           "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9Gb290ZXIvRm9vdGVyLnRzeA=="
@@ -15632,6 +15918,9 @@
           "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9MaW5rcy9TaG9ydGN1dHMudHN4"
         },
         {
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9Mb2NhdGlvbi9Mb2NhdGlvbi50c3g="
+        },
+        {
           "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9NaXNjZWxsYW5lb3VzL0NhbXBhaWduVGltZXIudHN4"
         },
         {
@@ -15639,6 +15928,12 @@
         },
         {
           "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9OZXdzbGV0dGVyL05ld3NsZXR0ZXIudHN4"
+        },
+        {
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9PZmZlckZvcm0vT2ZmZXJGb3JtLnRzeA=="
+        },
+        {
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9Qcm9kdWN0L1Byb2R1Y3REZXNjcmlwdGlvbi50c3g="
         },
         {
           "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9Qcm9kdWN0L1Byb2R1Y3REZXRhaWxzLnRzeA=="
@@ -15651,6 +15946,12 @@
         },
         {
           "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9Qcm9kdWN0L1dpc2hsaXN0LnRzeA=="
+        },
+        {
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9Qcm9kdWN0SGlnaGxpZ2h0cy9Qcm9kdWN0SGlnaGxpZ2h0cy50c3g="
+        },
+        {
+          "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9TZWxlY3RDYXIvU2VsZWN0Q2FyLnRzeA=="
         },
         {
           "$ref": "#/definitions/ZGVjby1zaXRlcy9zaW1jYXV0by9zZWN0aW9ucy9Tb2NpYWwvSW5zdGFncmFtUG9zdHMudHN4"
